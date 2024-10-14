@@ -1,0 +1,31 @@
+.App {
+  text-align: center;
+  padding: 20px;
+}
+
+.App-header {
+  background-color: #282c34;
+  padding: 20px;
+  color: white;
+}
+
+section {
+  margin: 40px;
+}
+
+.images {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.image-item {
+  text-align: center;
+}
+
+.image-item img {
+  width: 300px;
+  height: auto;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+}
