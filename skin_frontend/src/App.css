@@ -1,31 +1,153 @@
+/* General Styles for the App */
 .App {
-  text-align: center;
-  padding: 20px;
-}
-
-.App-header {
-  background-color: #282c34;
-  padding: 20px;
-  color: white;
-}
-
-section {
-  margin: 40px;
-}
-
-.images {
   display: flex;
-  justify-content: space-around;
-  margin-top: 20px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  padding: 20px 20px 40px 260px; /* Balanced padding: left for menu, others for spacing */
+  box-sizing: border-box;
+  background-color: #f9f9f9; /* Light background */
+  font-family: 'Arial', sans-serif;
 }
 
-.image-item {
+/* Header Styling */
+.App-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 40px;
   text-align: center;
+  border-bottom: 2px solid #ddd; /* Subtle separation */
+  padding-bottom: 20px;
 }
 
-.image-item img {
-  width: 300px;
-  height: auto;
-  border: 2px solid #ccc;
-  border-radius: 10px;
+.App-header h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333; /* Darker text */
+  margin-bottom: 10px;
+}
+
+/* Burger Icon Styling */
+.burger-icon {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.burger-icon span {
+  display: block;
+  width: 100%;
+  height: 4px;
+  background-color: red; /* Red lines */
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Navigation Menu Styling */
+.nav-menu {
+  display: none;
+  flex-direction: column;
+  align-items: flex-start;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 250px;
+  background-color: #333;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  visibility: hidden;
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: visibility 0.3s, opacity 0.3s ease, transform 0.3s ease;
+}
+
+.nav-menu.open {
+  display: flex;
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.nav-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.nav-menu li {
+  margin: 15px 0;
+}
+
+.nav-menu li a {
+  text-decoration: none;
+  color: white;
+  font-size: 1.2rem;
+  padding: 10px 15px;
+  border-radius: 5px;
+  display: block;
+  transition: background-color 0.3s ease;
+}
+
+.nav-menu li a:hover {
+  background-color: #555; /* Hover effect */
+}
+
+/* Main Content Area */
+.main-content {
+  width: 100%;
+  max-width: 900px; /* Limit width for readability */
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.main-content h2 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.main-content p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #555;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .burger-icon {
+    display: flex;
+  }
+
+  .nav-menu {
+    display: none;
+  }
+
+  .nav-menu.open {
+    display: flex;
+  }
+
+  .App {
+    padding-left: 20px; /* Remove extra left padding */
+    padding-right: 20px;
+  }
+
+  .main-content {
+    max-width: 100%; /* Use full width on small screens */
+    padding: 15px;
+  }
 }
