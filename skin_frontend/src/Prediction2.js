@@ -20,7 +20,8 @@ function Prediction2() {
     }
 
     const formData = new FormData();
-    formData.append("file", selectedFile);
+    formData.append("image", selectedFile);
+    formData.append("threshold", threshold);
 
     try {
       const response = await axios.post("http://localhost:8000/predict2", formData, {
@@ -29,21 +30,25 @@ function Prediction2() {
         },
       });
       console.log("Backend Response:", response.data);
-      if (response.data.prediction !== undefined) {
-        setPrediction(response.data.prediction);
+      if (response.data.prediction_score !== undefined) {
+        setPrediction(response.data);
       } else {
         alert("Prediction failed. Backend did not return a valid response.");
       }
     } catch (error) {
       console.error("Error during prediction:", error.response || error);
-      alert("An error occurred while processing the image.");
+      if (error.response) {
+        alert(`Error: ${error.response.data.error || "Unknown backend error"}`);
+      } else {
+        alert("An error occurred while processing the image.");
+      }
     }
   };
 
   return (
     <div style={{ textAlign: "center", margin: "20px" }}>
       <h1>ISIC Model Classification</h1>
-      <p>Upload an image for classification using the secondary model.</p>
+      <p>Upload an image for classification using the PyTorch model.</p>
 
       <input type="file" accept="image/*" onChange={handleFileChange} />
       <br />
@@ -66,14 +71,16 @@ function Prediction2() {
         Predict
       </button>
 
-      {prediction !== null && (
+      {prediction && (
         <div style={{ marginTop: "20px" }}>
-          <h2>Prediction Score: {prediction.toFixed(4)}</h2>
-          {prediction >= threshold ? (
-            <h3 style={{ color: "red" }}>Prediction: Malignant (High Risk)</h3>
-          ) : (
-            <h3 style={{ color: "green" }}>Prediction: Benign (Low Risk)</h3>
-          )}
+          <h2>Prediction Score: {prediction.prediction_score.toFixed(6)}</h2>
+          <h3
+            style={{
+              color: prediction.classification === "Malignant" ? "red" : "green",
+            }}
+          >
+            Prediction: {prediction.classification}
+          </h3>
         </div>
       )}
     </div>
